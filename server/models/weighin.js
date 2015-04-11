@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Weighin', {
-  value: Number
+  value: Number,
+  updatedAt: Date
 });

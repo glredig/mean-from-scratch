@@ -10,6 +10,7 @@ app.controller('weighinsController', ['$scope', '$resource', function($scope, $r
   $scope.createWeighin = function() {
     var weighin = new Weighin();
     weighin.value = $scope.weighinValue;
+    weighin.updatedAt = new Date();
     weighin.$save(function(result) {
       $scope.weighins.push(result);
     });
