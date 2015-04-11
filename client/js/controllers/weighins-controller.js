@@ -1,12 +1,18 @@
-app.controller('weighinsController', ['$scope', '$resource', 
-  function($scope, $resource) {
-  $scope.weighins = [
-    { value: 180.0 },
-    { value: 181.2 }
-  ]
+app.controller('weighinsController', ['$scope', '$resource', function($scope, $resource) {
+  var Weighin = $resource('/api/weighins');
 
-  $scope.addWeighin = function() {
-    $scope.weighins.push({ value: $scope.weighinValue });
+  Weighin.query(function(results) {
+    $scope.weighins = results;
+  });
+
+  $scope.weighins = [];
+
+  $scope.createWeighin = function() {
+    var weighin = new Weighin();
+    weighin.value = $scope.weighinValue;
+    weighin.$save(function(result) {
+      $scope.weighins.push(result);
+    });
     $scope.weighinValue = '';
   }
 }]);
