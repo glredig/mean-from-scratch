@@ -6,7 +6,10 @@ var express            = require('express'),
 
 mongoose.connect('mongodb://localhost:27017/mean-from-scratch');
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/client/views/index.html');
