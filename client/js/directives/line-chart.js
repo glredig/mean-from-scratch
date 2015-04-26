@@ -10,12 +10,12 @@ app.directive('lineChart', function() {
         width   = el.clientWidth,
         height  = el.clientHeight,
         svg     = d3.select(el).append('svg:svg'),
-        x       = d3.scale.linear().domain([1, data.length]).range([0, width]),
-        y       = d3.scale.linear().domain([100, d3.max(data) + d3.max(data) * .1]).range([height, 0]);
+        x       = d3.scale.linear().domain([1, data.length]).range([35, width]),
+        y       = d3.scale.linear().domain([d3.min(data) - d3.min(data) * .1, d3.max(data) + d3.max(data) * .1]).range([height, 0]);
 
       var line = d3.svg.line()
           .x(function(d, i) {
-            return x(i);
+            return x(i + 1);
           })
           .y(function(d) {
             return y(d);
@@ -26,18 +26,18 @@ app.directive('lineChart', function() {
           .append("svg:g")
           .attr("transform", "translate(30,30)");
 
-      var xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true);
+      var xAxis = d3.svg.axis().scale(x).ticks(data.length).tickSize(-height).tickSubdivide(true);
 
       svg.append('svg:g')
           .attr("class", "x axis")
-          .attr("transform", "translate(30," + height + ")")
+          .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
 
-      var yAxisLeft = d3.svg.axis().orient('left').scale(y).ticks(4).orient("left");
+      var yAxisLeft = d3.svg.axis().orient('left').scale(y).ticks(10).orient("left");
 
       svg.append('svg:g')
           .attr("class", "y axis")
-          .attr("transform", "translate(30,0)")
+          .attr("transform", "translate(35,0)")
           .call(yAxisLeft)
 
       svg.append("svg:path").attr("d", line(data)); 
