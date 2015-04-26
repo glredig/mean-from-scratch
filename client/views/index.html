@@ -47,23 +47,23 @@
           <p class="visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
           </p>
-          
-          <div id="graph" line-chart></div>
-          <div class="row">
-            <div ng-controller="weighinsController">
-              <h1>You made it! The number is {{ weighins.length }}</h1>
-              <ul>
-                <li ng-repeat="weighin in weighins">
-                  {{ weighin.value }}
-                </li>
-              </ul>
+            
+          <div ng-controller="weighinsController">
+            <div id="graph" line-chart chart-data="188,189,190,186,187"></div>
+            <div class="row">
+                <h1>You made it! The number is {{ weighins.length }}</h1>
+                <ul>
+                  <li ng-repeat="weighin in weighins">
+                    {{ weighin.value }}
+                  </li>
+                </ul>
 
-              <form ng-submit="createWeighin()">
-                <input type="text" placeholder="Weight (e.g. 180)" ng-model="weighinValue"></input>
-                <input type="submit" value="Add"></input>
-              </form>
+                <form ng-submit="createWeighin()">
+                  <input type="text" placeholder="Weight (e.g. 180)" ng-model="weighinValue"></input>
+                  <input type="submit" value="Add"></input>
+                </form>
+              </div>
             </div>
-          </div>
         </div><!--/col-sm-9-->
       </div><!--/row-->
     </div><!--/.container-->

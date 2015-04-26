@@ -1,6 +1,9 @@
 app.directive('lineChart', function() {
-  var data  = [188.0, 187.4, 187.6, 187.2, 186.8, 180, 175, 195, 150, 199];
-  function link(scope, el) {
+  function link(scope, el, attrs) {
+      data = attrs.chartData.split(',').map(function(num) {
+        return parseInt(num, 10);
+      });
+      console.log("Scope: ",data);
       var m = [80, 80, 80, 80];
 
       var el    = el[0],
@@ -21,26 +24,27 @@ app.directive('lineChart', function() {
       svg.attr("width", width + m[1] + m[3])
           .attr("height", height + m[0] + m[2])
           .append("svg:g")
-          .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+          .attr("transform", "translate(30,30)");
 
       var xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true);
 
       svg.append('svg:g')
           .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
+          .attr("transform", "translate(30," + height + ")")
           .call(xAxis)
 
       var yAxisLeft = d3.svg.axis().orient('left').scale(y).ticks(4).orient("left");
 
       svg.append('svg:g')
           .attr("class", "y axis")
-          .attr("transform", "translate(0,0)")
+          .attr("transform", "translate(30,0)")
           .call(yAxisLeft)
 
       svg.append("svg:path").attr("d", line(data)); 
   }
 
   return {
+    restrict: 'EA',
     link: link
   }
 })
